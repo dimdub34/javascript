@@ -7,8 +7,8 @@
             body {
                 background-color: lightgray;
             }
-            .container {
-                width: 1000px;
+            main {
+                width: 1024px;
                 margin: auto;
                 padding: 20px;
                 background-color: white;
@@ -20,53 +20,49 @@
         </style>
     </head>
     <body>
-        <div class="container">
-                <div class="row" style="min-height: 350px;">
-                    <h1>Ballon</h1>
-                    <p>
-                        Utilisez les boutons + et - pour gonfler et dégonfler le ballon. Le ballon accepte au maximum 20 injections, après il explose.
-                    </p>
-                    <p>Nombre d'injections : <span id="nb_injections">0</span></p>
-                    <img src="img/balloon.png" alt="" width=100 id="ballon">
-                </div>
-                <div class="row">
-                    <button type="button" id="degonfler" onclick="degonfler();"><img src="img/moins.png" style="width: 30px;" /></button>
-                    <button type="button" id="gonfler" onclick="gonfler();"><img src="img/plus.png" style="width: 30px;" /></button>
-                </div>
-                <div class="row">
-                    <p id="resultat"></p>
-                </div>
-        </div>
-    </body>
-    <script type="text/javascript">
-        let ballon = document.querySelector("#ballon");
-        let nb_injections = document.querySelector("#nb_injections");
+        <main>
+            <div class="row" style="min-height: 350px;">
+                <h1>Ballon</h1>
+                <p>
+                    Gonflez le ballon.  <br>
+                    Le ballon accepte au maximum 20 injections. <br>
+                    A chaque injection le ballon peut exploser. <br>
+                    Si le ballon n'explose pas vous gagnez, sinon vous perdez.<br>
+                    Bonne chance !!!
+                </p>
+                <p style="font-weight: bold">Nombre d'injections : <span id="nb_injections_out">0</span></p>
+                <img src="img/balloon.png" alt="Ballon" style="width:100px" id="ballon">
+                <p id="result" style="font-size: 1.5em; font-weight: bold"></p>
+            </div>
+            <div class="row">
+                <button type="button" onclick="gonfler()">Gonfler le ballon</button>
+            </div>
+        </main>
+        <script>
+            let ballon = document.querySelector("#ballon");
+            let nb_injections = 0;
+            let nb_injections_out = document.querySelector("#nb_injections_out");
+            let btn_gonfler = document.querySelector("button");
+            let explosion = Math.floor(Math.random() * 21);
+            let result = document.querySelector("p#result");
 
-        function gonfler() {
-            let injections = Number(nb_injections.innerText);
-            if (injections == 20) {
-                ballon.src = "img/explosion.png";
-                desactiver_boutons();
-                return;
+            function gonfler() {
+                nb_injections += 1;
+                nb_injections_out.textContent = nb_injections;
+                if (nb_injections == explosion) {
+                    ballon.src = "img/explosion.png";
+                    btn_gonfler.disabled = true;
+                    result.textContent = "Perdu !";
+                    result.style.color = "red";
+                } else {
+                    ballon.width += 2;
+                }
+                if (nb_injections == 20) {
+                    btn_gonfler.disabled = true;
+                    result.textContent = "Gagné !";
+                    result.style.color = "green";
+                }
             }
-            injections += 1;
-            nb_injections.innerText = injections;
-            ballon.width += 2;
-        }
-
-        function degonfler() {
-            let injections = Number(nb_injections.innerText);
-            if (injections == 0)
-                return;
-            injections -= 1;
-            nb_injections.innerText = injections;
-            ballon.width -= 2;
-        }
-
-        function desactiver_boutons() {
-            let btn = document.querySelectorAll("button");
-            for (i=0; i<btn.length; i++)
-                btn[i].disabled = true;
-        }
-    </script>
+        </script>
+    </body>
 </html>

@@ -115,7 +115,16 @@
     		<li>sensible à la casse donc maVariable != mavariable != MaVariable</li>
     		<li>Liste des mots réservés <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords" target="_blank">ici</a></li>
     		<li>typage dynamique</li>
-    		<li>principaux types: Number, String, Boolean et Array</li>
+    		<li>principaux types : Number, String, Boolean, Undefined, Null et Object
+                <ul>
+                    <li>Number : entiers ou décimaux</li>
+                    <li>String : chaînes de caractères</li>
+                    <li>Boolean : true ou false</li>
+                    <li>Undefined : variable non définie, ou déclarée mais sans valeur</li>
+                    <li>Null : variable déclarée avec une valeur null explicite</li>
+                    <li>Object : différents types comme des tableaux ou des dictionnaires</li>
+                </ul>
+            </li>
     	</ul>
     </section>
     <section id="operateurs">
@@ -124,7 +133,7 @@
     		<li>opérateurs arithmétiques + - * / et %</li>
     		<li>égalité ==, différence !=</li>
     		<li>supérieur >, >=, inférieur <, <=</li>
-    		<li>le + permet aussi de concaténer du texte<br>
+    		<li>le + permet aussi de concaténer des chaînes de caractères<br>
     			<code>
 						let nb1 = 1;<br>
 						let nb2 = 2;<br>
@@ -138,99 +147,101 @@
     </section>
     <section id="structures_conditionnelles">
     	<h3>Structures conditionnelles</h3>
-			<h4>if ... else</h4>
-			<ul>
-				<li>la condition entre parenthèses</li>
-				<li>l'instruction si vrai entre accolades<br>
-					<code>
-						if (condition_1) {<br>
-						  &nbsp;&nbsp; instruction_1;<br>
-						} else if (condition_2) {<br>
-						  &nbsp;&nbsp; instruction_2;<br>
-						} else {<br>
-						  &nbsp;&nbsp; instruction_3;<br>
-						}
-					</code>
-				</li>
-				<li>opérateur ternaire: let result = cond ? valeur_si_vrai: valeur_si_faux;</li>
-			</ul>
-		</section>
-		<section>
-			<h4>Boucle for</h4>
-			<ul>
-				<li style="list-style-type: none;">for (initialisation; condition; incrémentation) {instructions;}<br>
-					<code>
-					for (let i=0; i < 10; i++) {<br>
-					  &nbsp;&nbsp; instructions;<br>
-					}
-					</code>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<h4>Boucle while</h4>
-			<ul>
-				<li style="list-style-type: none;">while (condition) {instructions;}<br>
+		<h4>if ... else</h4>
+		<ul>
+			<li>la condition entre parenthèses</li>
+			<li>l'instruction si vrai entre accolades<br>
 				<code>
-					let i=0;<br>
-					while (i < 10) {<br>
-					  &nbsp;&nbsp; instructions;<br>
-					  &nbsp;&nbsp; i++;<br>
+					if (condition_1) {<br>
+					  &nbsp;&nbsp; instruction_1;<br>
+					} else if (condition_2) {<br>
+					  &nbsp;&nbsp; instruction_2;<br>
+					} else {<br>
+					  &nbsp;&nbsp; instruction_3;<br>
 					}
 				</code>
-				</li>
-			</ul>
-		</section>
+			</li>
+			<li>opérateur ternaire: let result = cond ? valeur_si_vrai: valeur_si_faux;</li>
+		</ul>
+	</section>
+	<section id="boucle_for">
+		<h4>Boucle for</h4>
+		<ul>
+			<li style="list-style-type: none;">for (initialisation; condition; incrémentation) {instructions;}<br>
+				<code>
+				for (let i=0; i < 10; i++) {<br>
+				  &nbsp;&nbsp; instructions;<br>
+				}
+				</code>
+			</li>
+		</ul>
+	</section>
+	<section id="boucle_while">
+		<h4>Boucle while</h4>
+		<ul>
+			<li style="list-style-type: none;">while (condition) {instructions;}<br>
+			<code>
+				let continuer = true;<br>
+				while (continuer) {<br>
+				  &nbsp;&nbsp; instructions;<br>
+				  &nbsp;&nbsp; if (...) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; continuer = false; <br>
+                  &nbsp;&nbsp; }<br>
+				}
+			</code>
+			</li>
+		</ul>
+	</section>
     <section id="tableaux">
     	<h3>Tableaux</h3>
-			<ul>
-				<li>Déclaration
-					<ul>
-						<li>let tab1 = new Array();</li>
-						<li>let tab2 = [];</li>
-						<li>let tab3 = new Array(10, 20, 30);</li>
-						<li>let tab4 = [10, 20, 30];</li>
-					</ul>
-				</li>
-				<li>Mélange des types dans le tableau (Number, String, Boolean)</li>
-				<li>Indexation commence à 0</li>
-				<li>Taille du tableau: mon_tableau.length</li>
-			</ul>
-		</section>
-		<section>
-			<ul>
-				<li>Ajouter un élément à la fin du tableau: le_tableau.push(la_valeur);</li>
-				<li>Ajouter un élément au début du tableau: le_tableau.unshift(la_valeur);</li>
-				<li>Enlever le dernier élément du tableau: le_tableau.pop();</li>
-				<li>Enlever le premier élément du tableau: le_tableau.shift();</li>
-				<li>Parcourir un tableau<br>
-					<code>
-						let mon_tableau = [10, 20, 30]; <br>
-						for (let i=0; i < mon_tableau.length; i++) { <br>
-						  &nbsp;&nbsp; console.log(mon_tableau[i]); <br>
-						}
-					</code>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<ul>
-				<li>possible de créer des tableaux à plusieurs dimensions<br>
-					<code>
-						let mon_tableau = [[10, 20, 30], ["A", "B", "C"]];
-					</code>
-				</li>
-				<li style="margin-top: 10px">Pour parcourir ce tableau à deux dimensions<br>
-					<code>
-						for (let i=0; i < mon_tableau.length; i++) { <br>
-						  &nbsp;&nbsp; for (let j=0; j< mon_tableau[i].length; j++) { <br>
-						    &nbsp;&nbsp;&nbsp;&nbsp; console.log(mon_tableau[i][j]); <br>
-						  &nbsp;&nbsp; } <br>
-						}
-	        </code>
-				</li>
-			</ul>
-		</section>
+		<ul>
+			<li>Déclaration
+				<ul>
+					<li>let tab1 = new Array();</li>
+					<li>let tab2 = [];</li>
+					<li>let tab3 = new Array(10, 20, 30);</li>
+					<li>let tab4 = [10, 20, 30];</li>
+				</ul>
+			</li>
+			<li>Mélange des types dans le tableau (Number, String, Boolean)</li>
+			<li>Indexation commence à 0</li>
+			<li>Taille du tableau: mon_tableau.length</li>
+		</ul>
+	</section>
+	<section>
+		<ul>
+			<li>Ajouter un élément à la fin du tableau: le_tableau.push(la_valeur);</li>
+			<li>Ajouter un élément au début du tableau: le_tableau.unshift(la_valeur);</li>
+			<li>Enlever le dernier élément du tableau: le_tableau.pop();</li>
+			<li>Enlever le premier élément du tableau: le_tableau.shift();</li>
+			<li>Parcourir un tableau<br>
+				<code>
+					let mon_tableau = [10, 20, 30]; <br>
+					for (let i=0; i < mon_tableau.length; i++) { <br>
+					  &nbsp;&nbsp; console.log(mon_tableau[i]); <br>
+					}
+				</code>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<ul>
+			<li>possible de créer des tableaux à plusieurs dimensions<br>
+				<code>
+					let mon_tableau = [[10, 20, 30], ["A", "B", "C"]];
+				</code>
+			</li>
+			<li style="margin-top: 10px">Pour parcourir ce tableau à deux dimensions<br>
+				<code>
+					for (let i=0; i < mon_tableau.length; i++) { <br>
+					  &nbsp;&nbsp; for (let j=0; j< mon_tableau[i].length; j++) { <br>
+					    &nbsp;&nbsp;&nbsp;&nbsp; console.log(mon_tableau[i][j]); <br>
+					  &nbsp;&nbsp; } <br>
+					}
+                </code>
+			</li>
+		</ul>
+	</section>
     <section id="fonctions">
     	<h3>Fonctions</h3>
     	<ul>
@@ -248,7 +259,7 @@
 			<p class="align-left">
 				<code>
 					function met_en_italique(texte) { <br>
-					  &nbsp;&nbsp; return "<i>" + texte + "</i>"; <br>
+					  &nbsp;&nbsp; return "&lt;i&gt;" + texte + "&lt;/i&gt;"; <br>
 					}
 				</code>
 			</p>
@@ -257,23 +268,10 @@
     	<h3>Pratique</h3>
     	<ul>
     		<li>Ouvrir un nouvel onglet puis ouvrir une console JS dans le navigateur</li>
-    		<li>Créer un tableau et faire afficher chaque élément<br />
-    			console.log() pour écrire dans la console</li>
+    		<li>Créer un tableau et faire afficher chaque élément de la liste dans la console (console.log(...) pour écrire dans la console)</li>
     		<li>Créer un fichier script.js et le charger dans le fichier index.html</li>
-    		<li>Dans le fichier script.js, écrire une fonction qui prend un tableau à 2 dimensions
-					en argument et qui renvoie le code html du tableau <br>
-    			<code>
-						let mon_tableau = [[10, 20, 30], ["A", "B", "C"]];
-					</code> <br>
-    			si la fonction s'appelle get_code_tableau(mon_tableau) alors quand on appelle cette fonction,
-					elle renvoie la chaîne de caractères suivante: <br>
-    			<code>
-						&lt;table&gt; <br>
-						  &lt;tr&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;20&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt; <br>
-						  &lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;C&lt;/td&gt;&lt;/tr&gt; <br>
-						&lt;/table&gt;
-    			</code>
-    		</li>
+            <li>Créer la fonction "dire_bonjour()". Cette fonction affiche "Bonjour" dans la console</li>
+            <li>Appeler cette fonction depuis le fichier d'index</li>
     	</ul>
     </section>
 </section>
@@ -282,7 +280,7 @@
 <section id="dom">
     <section>
 	       <h2>Le Document Object Model</h2>
-   </section>
+    </section>
 	<section>
 		<ul>
 			<li>Interface permettant à des programmes / scripts d'accéder ou de mettre à jour le contenu / la structure des documents HTML</li>
@@ -329,25 +327,31 @@
    </section>
    <section>
     	<ul>
-    		<li>représente la balise html</li>
+    		<li>représente la page web entière</li>
     		<li>objet le plus utilisé</li>
     		<li>quelques attributs de cet objet
     			<ul>
     				<li>document.title: l'élément title</li>
     				<li>document.lastModified: la date de dernière modification du document</li>
     				<li>document.URL: l'url du document</li>
-    				<li>document.write(texte): écrit la chaîne de caractères passée en argument à l'endroit où la fonction est appelée</li>
-    			</ul>
+                </ul>
+            </li>
+            <li>quelques méthodes
+                <ul>
+                    <li>document.write(texte): écrit la chaîne de caractères passée en argument à l'endroit où la fonction est appelée</li>
+                    <li>document.createElement(...) : pour ajouter un élément à la page</li>
+                    <li>document.addEventListener(...) : pour ajouter un écouteur d'événement</li>
+                </ul>
     		</li>
     	</ul>
-			<p class="align-left">
-				Par exemple pour changer le titre de la page : <br>
-				<code>
-					&lt;script&gt; <br>
-					&nbsp;&nbsp; document.title = "Le nouveau titre"; <br>
-					&lt;/script&gt;
-				</code>
-			</p>
+		<p class="align-left">
+			Par exemple pour changer le titre de la page : <br>
+			<code>
+				&lt;script&gt; <br>
+				&nbsp;&nbsp; document.title = "Le nouveau titre"; <br>
+				&lt;/script&gt;
+			</code>
+		</p>
     </section>
 </section>
 
@@ -375,38 +379,27 @@
     <section>
     	<h3>Pratique</h3>
     	<ul>
-    		<li>Ajouter, dans le footer, la date de dernière modification du document<br>
-				<i>Aide: il faut utiliser <code>document.write(document.lastModified);</code></i></li>
-    		<li>Dans la console, récupérer et faire afficher le texte des h2 du document
-					(objet.innerHTML pour afficher le texte de l'objet) <br>
-					<i>Aide : pour récupérer tous les éléments h2 il faut utiliser <br>
-						<code>let mes_h2 = document.querySelectorAll("h2");</code> <br>
-						et ensuite pour faire afficher le texte de ces h2 dans la console, il faut utiliser une
-						boucle <br>
-						<code>
-							for (let i=0; i&lt;mes_h2.length; i++) { <br>
-								&nbsp;&nbsp; console.log(mes_h2[i].innerHTML); <br>
-							}
-						</code></i>
-				</li>
+    		<li>Ajouter, dans le footer, la date de dernière modification du document</li>
+    		<li>Dans la console, récupérer et faire afficher le texte des h2 du document (objet.textContent pour afficher le texte de l'objet) <br>
+            <i>Aide : il faut récupérer tous les éléments h2, puis faire afficher le contenu de chacun (boucle for)</i></li>
     	</ul>
     </section>
 </section>
 
 <!-- MODIFICATION DES ELEMENTS ----------------------------------------------->
 <section id="dom_modification">
-  <section>
-     <h2>Modification des éléments du DOM</h2>
-   </section>
+    <section>
+        <h2>Modification des éléments du DOM</h2>
+    </section>
 	<section>
 		<h3>Modification du texte d'une balise</h3>
 		<ul>
-			<li>element.innerHTML</li>
+			<li>element.textContent</li>
 			<li>permet d'afficher et/ou de modifier le texte de l'élément</li>
 			<li style="list-style-type:none;">
 				<code>
-					document.querySelector("#biographie p").innerHTML = "On remplace le texte existant"; <br>
-					document.querySelector("#biographie p").innerHTML += "On ajoute du contenu"; <br>
+					document.querySelector("#biographie p").textContent = "On remplace le texte existant"; <br>
+					document.querySelector("#biographie p").textContent += "On ajoute du contenu"; <br>
 				</code>
 			</li>
 		</ul>
@@ -456,37 +449,61 @@
 				mon_image.style.width = "500px";
 			</code>
 	</section>
-  <section>
+    <section>
     	<h3>Pratique - 1</h3>
     	<p class="align-left">
-    		Dans la page photos, créer un div et dans ce div mettre une balise
-				img (avec un identifiant, par exemple img_normale), puis une fonction qui affiche la photo
-				miniature sélectionnée en taille réeelle dans le div<br>
-				<i>Aide : dans le tableau, dans chaque balise img il faut ajouter <br>
-					<code>onclick="display(this);"</code> <br>
-					puis il faut créer la fonction display(quelle_image) <br>
-					<code>
-						function display(quelle_image) { <br>
-							&nbsp;&nbsp; let mon_img_normale = document.querySelector("#img_normale"); <br>
-							&nbsp;&nbsp; mon_img_normale.src = quelle_image.src; <br>
-						}
-					</code>
-				</i>
-			</p>
-		</section>
-		<section>
-			<h3>Pratique - 2</h3>
-			<ul>
-				<li>Ecrire une fonction (et modifier les liens du menu pour qu'ils l'appellent) qui permet d'afficher uniquement l'article sélectionné, et cache les autres<br>
-				<i>Aide: <br>
-					pour cacher un élément : <code>element.style.visibility = "hidden";</code></i> <br>
-					pour afficher un élément : <code>element.style.visibility = "visible";</code> <br>
-					Avec hidden / visible, l'espace de l'élément est conservé, donc autre possibilité <br>
-					pour cacher un élément : <code>element.style.display = "none";</code></i> <br>
-					pour afficher un élément : <code>element.style.display = "block";</code> <br>
-				</li>
-        <li>Créer la page <a href="ballon.html" target="_blank">ballon</a> (pour récupérer les images, faites clic droit sur l'image et enregistrer sous ...)</li>
-    	</ul>
+    		Dans la page photos, créer les balises et la fonction pour que le click sur une photo miniature affiche cette photo
+            en grand dans un espace à côté.
+        </p>
+        <p>
+            <u>Aide :</u> créer un div et dans ce div mettre une balise
+            img (avec un identifiant, par exemple img_normale avec l'attribut style="width: 500px") <br>
+            créer une fonction <code>display(quelle_image)</code> qui prend en argument une image. Cette fonction place cette image dans la balise img créée précédemment <br>
+			dans le tableau, dans chaque balise img ajouter <code>onclick="display(this);"</code>
+		</p>
+	</section>
+	<section>
+		<h3>Pratique - 2</h3>
+		<p>
+			Ecrire une fonction (et modifier les liens du menu pour qu'ils l'appellent) qui permet d'afficher uniquement l'article sélectionné, et cache les autres
+        </p>
+        <p>
+			<u>Aide :</u> <br>
+				pour cacher un élément : <code>element.style.visibility = "hidden";</code> <br>
+				pour afficher un élément : <code>element.style.visibility = "visible";</code> <br>
+				Avec hidden / visible, l'espace de l'élément est conservé, donc autre possibilité <br>
+				pour cacher un élément : <code>element.style.display = "none";</code> <br>
+				pour afficher un élément : <code>element.style.display = "block";</code> <br>
+    	</p>
+    </section>
+    <section>
+        <h3>Récupération des valeurs d'un formulaire</h3>
+        <p>
+            Les widgets de formulaire (input) ont un attribut <i>value</i> qu'il faut récupérer.
+        </p>
+        <p>
+            Donc pour récupérer les valeurs saisies dans un formulaire, il faut créer un bouton de validation, et ce bouton appelle une fonction (à créer) qui sélectionne tour à tour chaque input et récupère sa valeurs
+        </p>
+    </section>
+    <section>
+        <h3>Pratique</h3>
+        <p>
+            Dans la page formulaire, écrire le script qui récupère les informations saisies, et les faire afficher dans un paragraphe en dessous du formulaire.
+        </p>
+        <p>
+            <u>Aide</u> : pour les boutons radios, pour récupérer le bouton sélectionné <code>document.querySelector("input[name=sexe]:checked");</code>
+        </p>
+    </section>
+    <section>
+        <h3>Pratique</h3>
+        <p>
+            Créer l'équivalent de la page <a href="ballon.html" target="_blank">ballon</a>.
+        </p>
+        <p>
+            <u>Aide</u> : Pour générer un nombre entier aléatoire entre 0 et 20 (bornes incluses) en JavaScript, vous pouvez utiliser la fonction Math.random() combinée avec Math.floor() : <code>Math.floor(Math.random() * 21);</code> <br>
+            Math.random() génère un nombre flottant aléatoire entre 0 (inclus) et 1 (exclus). Multiplier ce nombre par 21 donne un nombre dans l'intervalle [0, 21) (21 non inclus). <br>
+            Math.floor() arrondit ce nombre à l'entier inférieur, résultant ainsi en un entier dans l'intervalle [0, 20] inclus.
+        </p>
     </section>
 </section>
 
