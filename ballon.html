@@ -49,7 +49,7 @@
             function gonfler() {
                 nb_injections += 1;
                 nb_injections_out.textContent = nb_injections;
-                if (nb_injections == explosion) {
+                if (nb_injections === explosion) {
                     ballon.src = "img/explosion.png";
                     btn_gonfler.disabled = true;
                     result.textContent = "Perdu !";
@@ -57,7 +57,7 @@
                 } else {
                     ballon.width += 2;
                 }
-                if (nb_injections == 20) {
+                if (nb_injections === 20) {
                     btn_gonfler.disabled = true;
                     result.textContent = "Gagné !";
                     result.style.color = "green";
