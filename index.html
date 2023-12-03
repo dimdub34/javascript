@@ -1,0 +1,546 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Javascript</title>
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="http://www.duboishome.info/dimitri/cours/custom.css">
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- TITRE --------------------------------------------------->
+<section style="text-align: center">
+	<h2>Javascript</h2>
+	<p>&nbsp;</p>
+	<h3>DU - Connaissances Fondamentales en Informatique avec des Logiciels Libres</h3>
+	<p>&nbsp;</p>
+	<h4>D. Dubois</h4>
+	<p><a href="mailto: dimitri.dubois@umontpellier.fr">dimitri.dubois@umontpellier.fr</a></p>
+	<figure>
+		<img src="img/um.png" alt="Logo UM" style="width:150px; border: 0px">
+		<img src="img/cnrs.png" alt="Logo CNRS" style="width:150px; border: 0px">
+	</figure>
+</section>
+
+<!-- PLAN ---------------------------------------------------->
+<section>
+	<h2>Plan</h2>
+	<ul style="list-style-type: none;">
+		<li><a href="#introduction">Introduction</a></li>
+		<li><a href="#regles">Conventions d'écriture, opérateurs, structures conditionnelles etc.</a></li>
+		<li><a href="#dom">Le Document object Model</a></li>
+		<li><a href="#element_document">L'objet document</a></li>
+		<li><a href="#dom_selection">Sélection des éléments du DOM</a></li>
+		<li><a href="#dom_modification">Modification des éléments du DOM</a></li>
+		<li><a href="#sources">Sources</a></li>
+		<li><a href="#pour_aller_plus_loin">Pour aller plus loin</a></li>
+	</ul>
+</section>
+
+<!-- INTRODUCTION--------------------------------------------->
+<section id="introduction">
+    <section>
+	       <h2>Introduction</h2>
+       </section>
+	<section>
+		<ul>
+			<li>Language de programmation du web, côté client</li>
+			<li>Créé en 1995 par Brendan Eich</li>
+			<li>Standardisé par l'ECMA (European association for standardizing information and communication systems), anciennement ECMA (European Computer Manufacturers Association)</li>
+		</ul>
+        <figure>
+            <img src="img/Brendan_Eich.jpg" alt="Brendan Eich" class="plain" style="height: 300px;"/>
+        </figure>
+	</section>
+	<section>
+		<ul>
+			<li>Interprété par le navigateur</li>
+			<li>Orienté objet</li>
+			<li>Placé dans la page html ou dans un fichier séparé</li>
+			<li>Permet de dynamiser les pages html, notamment en agissant sur les propriétés CSS</li>
+			<li>Le JS agit sur la page web uniquement, il ne peut pas agir sur les fichiers de l'ordinateur</li>
+            <li>Les navigateurs disposent d'une console Javascript qui permet d'interagir avec l'interpréteur</li>
+		</ul>
+	</section>
+  <section id="insertion">
+    	<h3>Insertion du code</h3>
+    	<ul>
+    		<li>Dans la page à l'intérieur de la balise script<br>
+    			<code>
+    				&lt;script&gt;ici le code&lt;/script&gt;
+    			</code>
+    		</li>
+    		<li>Dans un fichier séparé, appelé dans head avec la balise script et l'attribut src<br>
+    			<code>
+    				&lt;script src="fichier.js"&gt;&lt;/script&gt;
+    			</code>
+    		</li>
+    		<li>Dans les attributs d'une balise, associé à un événement (onclick, oniput, onmouseover etc.)<br>
+    			<code>
+    				&lt;a href="#" onclick="appel_une_fonction();"&gt;Cliquer&lt;/a&gt;
+    			</code>
+    		</li>
+    	</ul>
+  </section>
+</section>
+
+<!-- RÈGLES ECRITURE --------------------------------------------------------->
+<section id="regles">
+    <section>
+        <h2>Règles d'écriture, mots clés, structures conditionnelles etc.</h2>
+    </section>
+    <section>
+    	<ul>
+    		<li>Chaque instruction se termine par ;</li>
+    		<li>Commentaires sur une ligne //</li>
+    		<li>Commentaires sur plusieurs lignes /* commentaire */</li>
+    	</ul>
+    </section>
+    <section id="variables">
+    	<h3>Variables</h3>
+    	<ul>
+    		<li>mot clé <code>let</code> pour déclarer une variable<xmp>let maVariable = 10;</xmp></li>
+    		<li>sensible à la casse donc maVariable != mavariable != MaVariable</li>
+    		<li>Liste des mots réservés <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords" target="_blank">ici</a></li>
+    		<li>typage dynamique</li>
+    		<li>principaux types: Number, String, Boolean et Array</li>
+    	</ul>
+    </section>
+    <section id="operateurs">
+    	<h3>Opérateurs</h3>
+    	<ul>
+    		<li>opérateurs arithmétiques + - * / et %</li>
+    		<li>égalité ==, différence !=</li>
+    		<li>supérieur >, >=, inférieur <, <=</li>
+    		<li>le + permet aussi de concaténer du texte<br>
+    			<code>
+						let nb1 = 1;<br>
+						let nb2 = 2;<br>
+						let somme = nb1 + nb2;<br>
+						let resultat = "la somme de " + nb1 + " et " + nb2 + <br> " donne " + somme;
+					</code>
+    		</li>
+    		<li>et: cond1 & cond2 renvoie true si cond1 et cond2 sont vraies</li>
+    		<li>ou: cond1 | cond2 renvoie true si cond1 ou cond2 est vraie</li>
+    	</ul>
+    </section>
+    <section id="structures_conditionnelles">
+    	<h3>Structures conditionnelles</h3>
+			<h4>if ... else</h4>
+			<ul>
+				<li>la condition entre parenthèses</li>
+				<li>l'instruction si vrai entre accolades<br>
+					<code>
+						if (condition_1) {<br>
+						  &nbsp;&nbsp; instruction_1;<br>
+						} else if (condition_2) {<br>
+						  &nbsp;&nbsp; instruction_2;<br>
+						} else {<br>
+						  &nbsp;&nbsp; instruction_3;<br>
+						}
+					</code>
+				</li>
+				<li>opérateur ternaire: let result = cond ? valeur_si_vrai: valeur_si_faux;</li>
+			</ul>
+		</section>
+		<section>
+			<h4>Boucle for</h4>
+			<ul>
+				<li style="list-style-type: none;">for (initialisation; condition; incrémentation) {instructions;}<br>
+					<code>
+					for (let i=0; i < 10; i++) {<br>
+					  &nbsp;&nbsp; instructions;<br>
+					}
+					</code>
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h4>Boucle while</h4>
+			<ul>
+				<li style="list-style-type: none;">while (condition) {instructions;}<br>
+				<code>
+					let i=0;<br>
+					while (i < 10) {<br>
+					  &nbsp;&nbsp; instructions;<br>
+					  &nbsp;&nbsp; i++;<br>
+					}
+				</code>
+				</li>
+			</ul>
+		</section>
+    <section id="tableaux">
+    	<h3>Tableaux</h3>
+			<ul>
+				<li>Déclaration
+					<ul>
+						<li>let tab1 = new Array();</li>
+						<li>let tab2 = [];</li>
+						<li>let tab3 = new Array(10, 20, 30);</li>
+						<li>let tab4 = [10, 20, 30];</li>
+					</ul>
+				</li>
+				<li>Mélange des types dans le tableau (Number, String, Boolean)</li>
+				<li>Indexation commence à 0</li>
+				<li>Taille du tableau: mon_tableau.length</li>
+			</ul>
+		</section>
+		<section>
+			<ul>
+				<li>Ajouter un élément à la fin du tableau: le_tableau.push(la_valeur);</li>
+				<li>Ajouter un élément au début du tableau: le_tableau.unshift(la_valeur);</li>
+				<li>Enlever le dernier élément du tableau: le_tableau.pop();</li>
+				<li>Enlever le premier élément du tableau: le_tableau.shift();</li>
+				<li>Parcourir un tableau<br>
+					<code>
+						let mon_tableau = [10, 20, 30]; <br>
+						for (let i=0; i < mon_tableau.length; i++) { <br>
+						  &nbsp;&nbsp; console.log(mon_tableau[i]); <br>
+						}
+					</code>
+				</li>
+			</ul>
+		</section>
+		<section>
+			<ul>
+				<li>possible de créer des tableaux à plusieurs dimensions<br>
+					<code>
+						let mon_tableau = [[10, 20, 30], ["A", "B", "C"]];
+					</code>
+				</li>
+				<li style="margin-top: 10px">Pour parcourir ce tableau à deux dimensions<br>
+					<code>
+						for (let i=0; i < mon_tableau.length; i++) { <br>
+						  &nbsp;&nbsp; for (let j=0; j< mon_tableau[i].length; j++) { <br>
+						    &nbsp;&nbsp;&nbsp;&nbsp; console.log(mon_tableau[i][j]); <br>
+						  &nbsp;&nbsp; } <br>
+						}
+	        </code>
+				</li>
+			</ul>
+		</section>
+    <section id="fonctions">
+    	<h3>Fonctions</h3>
+    	<ul>
+    		<li>mot clé <code>function</code></li>
+    		<li>suivi du nom de la fonction et entre parenthèses des arguments de la fonction</li>
+    		<li>si la fonction doit retourner une valeur, utilisation du mot clé <code>return</code></li>
+			</ul>
+			<p class="align-left">
+				<code>
+					function multiplie_par_deux(valeur) { <br>
+					  &nbsp;&nbsp; return valeur * 2; <br>
+					}
+  			</code>
+			</p>
+			<p class="align-left">
+				<code>
+					function met_en_italique(texte) { <br>
+					  &nbsp;&nbsp; return "<i>" + texte + "</i>"; <br>
+					}
+				</code>
+			</p>
+    </section>
+    <section>
+    	<h3>Pratique</h3>
+    	<ul>
+    		<li>Ouvrir un nouvel onglet puis ouvrir une console JS dans le navigateur</li>
+    		<li>Créer un tableau et faire afficher chaque élément<br />
+    			console.log() pour écrire dans la console</li>
+    		<li>Créer un fichier script.js et le charger dans le fichier index.html</li>
+    		<li>Dans le fichier script.js, écrire une fonction qui prend un tableau à 2 dimensions
+					en argument et qui renvoie le code html du tableau <br>
+    			<code>
+						let mon_tableau = [[10, 20, 30], ["A", "B", "C"]];
+					</code> <br>
+    			si la fonction s'appelle get_code_tableau(mon_tableau) alors quand on appelle cette fonction,
+					elle renvoie la chaîne de caractères suivante: <br>
+    			<code>
+						&lt;table&gt; <br>
+						  &lt;tr&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;20&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt; <br>
+						  &lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;C&lt;/td&gt;&lt;/tr&gt; <br>
+						&lt;/table&gt;
+    			</code>
+    		</li>
+    	</ul>
+    </section>
+</section>
+
+<!--LE DOM ------------------------------------------------------------------->
+<section id="dom">
+    <section>
+	       <h2>Le Document Object Model</h2>
+   </section>
+	<section>
+		<ul>
+			<li>Interface permettant à des programmes / scripts d'accéder ou de mettre à jour le contenu / la structure des documents HTML</li>
+			<li>Le DOM est créé au chargement de la page</li>
+			<li>Il définit
+				<ul>
+					<li>Les éléments HMTL (balises) comme des objets</li>
+					<li>Les propriétés de chacun de ces éléments</li>
+					<li>Les méthodes pour accéder à chacun de ces éléments et les modifier</li>
+					<li>Les méthodes pour ajouter des éléments</li>
+					<li>Les événements de chacun de ces éléments</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<figure>
+			<img class="plain" src="img/dom.png" />
+			<figcaption>Représentation du DOM sous forme d'arbre</figcaption>
+		</figure>
+	</section>
+	<section>
+		<figure>
+			<img class="plain" src="img/dom_2.png" />
+			<figcaption>Représentation du DOM avec attributs</figcaption>
+		</figure>
+	</section>
+	<section>
+		<p>Le JS va permettre
+			<ul>
+				<li>d'ajouter, enlever, modifier des éléments</li>
+				<li>d'ajouter, enlever, modifier le texte</li>
+				<li>d'ajouter, enlever modifier des attributs</li>
+				<li>réagir à des événements (click, page chargée etc.)</li>
+			</ul>
+		</p>
+	</section>
+</section>
+
+<!-- DOCUMENT ---------------------------------------------------------------->
+<section id="element_document">
+  <section>
+     <h2>L'objet document</h2>
+   </section>
+   <section>
+    	<ul>
+    		<li>représente la balise html</li>
+    		<li>objet le plus utilisé</li>
+    		<li>quelques attributs de cet objet
+    			<ul>
+    				<li>document.title: l'élément title</li>
+    				<li>document.lastModified: la date de dernière modification du document</li>
+    				<li>document.URL: l'url du document</li>
+    				<li>document.write(texte): écrit la chaîne de caractères passée en argument à l'endroit où la fonction est appelée</li>
+    			</ul>
+    		</li>
+    	</ul>
+			<p class="align-left">
+				Par exemple pour changer le titre de la page : <br>
+				<code>
+					&lt;script&gt; <br>
+					&nbsp;&nbsp; document.title = "Le nouveau titre"; <br>
+					&lt;/script&gt;
+				</code>
+			</p>
+    </section>
+</section>
+
+<!-- SELECTION DES ELEMENTS DU DOCUMENT -------------------------------------->
+<section id="dom_selection">
+    <section>
+       <h2>Sélection des éléménts du document</h2>
+   </section>
+	<section>
+		<ul>
+			<li>querySelector(le_selecteur): renvoie le premier élément du sélecteur ou null si rien trouvé</li>
+			<li>querySelectorAll(le_selecteur): renvoie un tableau avec tous les éléments du sélecteur</li>
+      <li>le_selecteur = même code que dans le css</li>
+		</ul>
+	</section>
+	<section>
+		<h3>Exemples</h3>
+			<ul>
+				<li style="list-style-type: none;"><code>document.querySelector("#contact");</code> <br>
+					renvoie l'élément avec l'identifiant contact</li>
+				<li style="list-style-type: none;"><code>document.querySelectorAll("article");</code> <br>
+					renvoie un tableau avec tous les articles</li>
+			</ul>
+	</section>
+    <section>
+    	<h3>Pratique</h3>
+    	<ul>
+    		<li>Ajouter, dans le footer, la date de dernière modification du document<br>
+				<i>Aide: il faut utiliser <code>document.write(document.lastModified);</code></i></li>
+    		<li>Dans la console, récupérer et faire afficher le texte des h2 du document
+					(objet.innerHTML pour afficher le texte de l'objet) <br>
+					<i>Aide : pour récupérer tous les éléments h2 il faut utiliser <br>
+						<code>let mes_h2 = document.querySelectorAll("h2");</code> <br>
+						et ensuite pour faire afficher le texte de ces h2 dans la console, il faut utiliser une
+						boucle <br>
+						<code>
+							for (let i=0; i&lt;mes_h2.length; i++) { <br>
+								&nbsp;&nbsp; console.log(mes_h2[i].innerHTML); <br>
+							}
+						</code></i>
+				</li>
+    	</ul>
+    </section>
+</section>
+
+<!-- MODIFICATION DES ELEMENTS ----------------------------------------------->
+<section id="dom_modification">
+  <section>
+     <h2>Modification des éléments du DOM</h2>
+   </section>
+	<section>
+		<h3>Modification du texte d'une balise</h3>
+		<ul>
+			<li>element.innerHTML</li>
+			<li>permet d'afficher et/ou de modifier le texte de l'élément</li>
+			<li style="list-style-type:none;">
+				<code>
+					document.querySelector("#biographie p").innerHTML = "On remplace le texte existant"; <br>
+					document.querySelector("#biographie p").innerHTML += "On ajoute du contenu"; <br>
+				</code>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<h3>Modification d'un attribut d'une balise</h3>
+		<ul>
+			<li>element.attribut</li>
+			<li>permet d'afficher et/ou de modifer un attribut d'une balise</li>
+			<li>element.setAttribute("nom_attribut", "valeur") <br />pour ajouter un attribut à la balise</li>
+			<li style="list-style-type: none;">
+				<code>
+					&lt;p id="demo"&gt; <br>
+					&nbsp;&nbsp; Un lien vers &lt;a href="https://www.bing.com/"&gt;mon moteur de recherche favori&lt;/a&gt; <br>
+					&lt;/p&gt; <br>
+					&lt;script&gt; <br>
+					&nbsp;&nbsp; let mon_lien = document.querySelector("#demo a"); <br>
+					&nbsp;&nbsp; mon_lien.href = "http://www.google.com"; <br>
+					&nbsp;&nbsp; mon_lien.setAttribute("target", "_blank"); <br>
+					&lt;/script&gt;
+				</code>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<h3>Modification des propriétés CSS d'une balise</h3>
+		<ul>
+			<li>element.style.la_propriete</li>
+			<li>permet d'afficher et/ou modifier la propriété</li>
+			<li>pas de tirets dans les propriétés, remplacés par une majuscule. Par exemple font-weight devient fontWeight</li>
+			<li style="list-style-type: none;">
+				<code>
+					let ma_section = document.querySelector("section"); <br>
+					ma_section.style.backgroundColor = "green";
+				</code>
+			</li>
+		</ul>
+		<p class="align-left">
+			Pour modifier l'attribut src d'une image: <br>
+			<code>
+				let mon_image = document.querySelector("#identifiant"); <br>
+				mon_image.src = "nouveau_chemin.png";
+			</code><br>
+			Pour modifier la taille d'une image : <br>
+			<code>
+				let mon_image = document.querySelector("#identifiant"); <br>
+				mon_image.style.width = "500px";
+			</code>
+	</section>
+  <section>
+    	<h3>Pratique - 1</h3>
+    	<p class="align-left">
+    		Dans la page photos, créer un div et dans ce div mettre une balise
+				img (avec un identifiant, par exemple img_normale), puis une fonction qui affiche la photo
+				miniature sélectionnée en taille réeelle dans le div<br>
+				<i>Aide : dans le tableau, dans chaque balise img il faut ajouter <br>
+					<code>onclick="display(this);"</code> <br>
+					puis il faut créer la fonction display(quelle_image) <br>
+					<code>
+						function display(quelle_image) { <br>
+							&nbsp;&nbsp; let mon_img_normale = document.querySelector("#img_normale"); <br>
+							&nbsp;&nbsp; mon_img_normale.src = quelle_image.src; <br>
+						}
+					</code>
+				</i>
+			</p>
+		</section>
+		<section>
+			<h3>Pratique - 2</h3>
+			<ul>
+				<li>Ecrire une fonction (et modifier les liens du menu pour qu'ils l'appellent) qui permet d'afficher uniquement l'article sélectionné, et cache les autres<br>
+				<i>Aide: <br>
+					pour cacher un élément : <code>element.style.visibility = "hidden";</code></i> <br>
+					pour afficher un élément : <code>element.style.visibility = "visible";</code> <br>
+					Avec hidden / visible, l'espace de l'élément est conservé, donc autre possibilité <br>
+					pour cacher un élément : <code>element.style.display = "none";</code></i> <br>
+					pour afficher un élément : <code>element.style.display = "block";</code> <br>
+				</li>
+        <li>Créer la page <a href="ballon.html" target="_blank">ballon</a> (pour récupérer les images, faites clic droit sur l'image et enregistrer sous ...)</li>
+    	</ul>
+    </section>
+</section>
+
+<!-- SOURCES ----------------------------------------------------------------->
+<section id="sources">
+	<h2>Sources</h2>
+	<ul>
+		<li><a href="https://developer.mozilla.org/fr/docs/Web/JavaScript" target="_blank">MDN Web docs, fait par les développeurs de Mozilla</a></li>
+		<li><a href="http://www.w3schools.com/js/" target="_blank">w3schools</a></li>
+		<li><a href="https://programmation-facile.developpez.com/tutoriels/web/techniques-creer-applications-javascript-performantes/" target="_blank">developpez.com</a></li>
+		<li><a href="http://www.gchagnon.fr/cours/dhtml/toc.html#chapintrojavascript.xml" target="_blank">Cours de Gilles Chagnon</a></li>
+	</ul>
+</section>
+<section>
+	<h2>Outils</h2>
+	<ul>
+		<li><a href="http://jsfiddle.net/" target="_blank">jsFiddle pour tester du code</a></li>
+		<li><a href="https://js.do/" target="_blank">pour éditer du code en ligne</a></li>
+	</ul>
+</section>
+<section>
+	<h2>Pour aller plus loin</h2>
+	<ul>
+		<li>Frameworks HTML/CSS/JS de type bootstrap (liste <a href="https://www.codeur.com/blog/front-end-framework/" target="_blank">ici</a>)</li>
+		<li>CMS de type Wordpress, Drupal, Joomla ...</li>
+	</ul>
+</section>
+
+<!-- fermeture des div initiaux -->
+</div>
+</div>
+
+<!-- scripts -->
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+	// More info about config & dependencies:
+	// - https://github.com/hakimel/reveal.js#configuration
+	// - https://github.com/hakimel/reveal.js#dependencies
+	Reveal.initialize({
+		dependencies: [
+			{ src: 'plugin/markdown/marked.js' },
+			{ src: 'plugin/markdown/markdown.js' },
+			{ src: 'plugin/notes/notes.js', async: true },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+		]
+	});
+	Reveal.configure(
+		{
+            pdfMaxPagesPerSlide: 1,
+			slideNumber: 'c/t',
+            history: true,
+        }
+	)
+</script>
+</body>
+</html>
